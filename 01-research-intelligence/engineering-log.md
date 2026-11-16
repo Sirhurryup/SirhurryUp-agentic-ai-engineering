@@ -50,3 +50,42 @@ My implementation checks whether a source is assigned,
 but it does not yet determine whether that source
 actually supports the research claim. Human verification
 remains necessary.
+
+
+## Lab 03 — Research Document Ingestion
+
+### Objective
+I developed a reusable Python component to read research documents
+and make their contents available for further processing.
+
+### Implementation
+I created `document_loader.py` with a `read_document()` function
+that accepts a file path and returns the document's contents as a string.
+
+I separated the document-loading logic from `document_reader.py`
+to maintain clear responsibilities between components.
+
+### Engineering Decisions
+- I applied the DRY (Don't Repeat Yourself) principle by removing
+  duplicate file-reading code.
+- I applied separation of concerns by keeping document loading
+  independent of application-specific error messages.
+- I used `with open()` to ensure files are automatically closed.
+- I specified UTF-8 encoding for text processing.
+
+### Testing
+I implemented two automated tests using Python's `unittest` framework:
+
+1. `test_read_existing_document()` — verifies that text can be
+   extracted from an existing document.
+2. `test_missing_document()` — verifies that a missing document
+   raises `FileNotFoundError`.
+
+Both tests passed.
+
+### Current Limitations
+My document loader currently supports plain-text files.
+It does not yet extract text from PDF or Word documents.
+
+The application can locate keywords, but keyword matches alone
+do not establish scientific evidence.
