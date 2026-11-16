@@ -26,3 +26,27 @@ The checker validates the presence of text, not scientific accuracy, source auth
 
 ### Next Improvement
 Introduce source-grounded evidence retrieval and validation.
+
+## Lab 02 — Claim Verification and Tracking
+
+### Implementation
+I developed the `evaluate_claim()` function to examine the
+source field of a research claim and return either
+`NEEDS REVIEW` or `NEEDS VERIFICATION`.
+
+### Engineering Decision
+I separated the evaluation logic into `claim_evaluator.py`
+to make the function reusable and independently testable.
+
+### Automated Testing
+I implemented two unit tests using Python's `unittest`
+framework to verify the function's behavior when a
+source is missing or assigned.
+
+Both tests passed.
+
+### Current Limitation
+My implementation checks whether a source is assigned,
+but it does not yet determine whether that source
+actually supports the research claim. Human verification
+remains necessary.
