@@ -16,19 +16,32 @@ def chunk_document(content):
     return cleaned_chunks
 
 try:
-    result = read_document("sample_documents/student_outcomes.txt")
-    chunks = chunk_document(result)
-    print(f"Total chunks: {len(chunks)}")
-    
-    matches = search_chunks(chunks, "completion", "student_outcomes.txt")
-    print(f"Matching chunks: {len(matches)}")
+    documents = [
+        "sample_documents/student_outcomes.txt",
+        "sample_documents/attendance_summary.txt"
+    ]
 
-    if not matches:
+    all_matches = []
+
+    for document in documents:
+        result = read_document(document)
+        print(f"Loaded: {document}")
+
+        chunks = chunk_document(result)
+        print(f"Total chunks: {len(chunks)}")
+    
+        matches = search_chunks(chunks, "completion", document)
+        all_matches.extend(matches)
+
+    print(f"Total matching chunks: {len(all_matches)}")
+
+    if not all_matches:
         print("No matching research passages found.")
 
-    for match in matches:
+    for match in all_matches:
         print("MATCH FOUND:")
         print("Source:", match["source"])
+        print("Chunk ID:", match["chunk_id"])
         print("Text:", match["text"])
         print("---")
 except FileNotFoundError:

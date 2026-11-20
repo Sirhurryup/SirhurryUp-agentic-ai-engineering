@@ -24,3 +24,15 @@ class TestDocumentRetriever(unittest.TestCase):
         matches = search_chunks(chunks, "completion", "student_outcomes.txt")
 
         self.assertEqual(matches[0]["source"], "student_outcomes.txt")
+
+    def test_chunk_id(self):
+        chunks = [
+            "Introduction",
+            "The program achieved an 80 percent completion rate."
+            "Conclusion"
+        ]
+
+        matches = search_chunks(chunks, "completion", "research.txt")
+
+        self.assertEqual(len(matches), 1)
+        self.assertEqual(matches[0]["chunk_id"], 2)

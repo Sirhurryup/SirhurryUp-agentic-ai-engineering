@@ -148,3 +148,58 @@ and attributes research information to its source.
 I am developing the foundation for Retrieval-Augmented Generation
 (RAG), where retrieved evidence can inform AI-generated responses.
 
+
+## Lab 05 — Multi-Document Retrieval and Source Tracking
+
+### Objective
+I extended my research retrieval pipeline to search multiple documents while preserving evidence traceability.
+
+### Architecture
+I implemented the following processing sequence:
+
+1. Load each research document.
+2. Split its contents into chunks.
+3. Search each chunk for a keyword.
+4. Attach source metadata and a chunk ID to each matching passage.
+5. Aggregate matching passages into one results list.
+6. Display the results with their source information.
+
+### Engineering Decisions
+
+- I used a list of document paths to support multiple research files.
+- I used a `for` loop to process each document independently.
+- I used `.extend()` to combine matches into a flat list rather than a nested list.
+- I replaced hardcoded source attribution with the current document path.
+- I used `enumerate(chunks, start=1)` to assign position-based chunk IDs.
+- I preserved the existing retrieval behavior while extending its metadata.
+
+### Debugging Lessons
+
+I encountered a filename mismatch that triggered `FileNotFoundError`.
+
+I also discovered that processing code outside the document loop caused only the final document to be searched.
+
+These exercises reinforced the importance of exact file paths, Python indentation, execution order, and verifying actual output rather than relying only on summary counts.
+
+### Verification Evidence
+
+- Documents processed: 2
+- Total chunks: 10
+- Matching passages: 2
+- Source attribution: Verified
+- Chunk IDs: Verified
+- Unit tests: 4 passed
+
+### Current Limitations
+
+My retrieval system uses literal, case-insensitive keyword matching rather than semantic similarity.
+
+Chunk IDs identify positions within individual documents and may change if document content or chunking rules change.
+
+The system retrieves evidence candidates; it does not yet establish whether a research claim is scientifically supported.
+
+### Next Engineering Phase
+
+I will explore how a language model can use retrieved passages to produce grounded responses without inventing evidence.
+
+
